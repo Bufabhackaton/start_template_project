@@ -75,11 +75,22 @@ npm run mcp:build     # rebuild dist
 
 Commit the updated submodule pointers to share the bump with teammates.
 
-## Local hook overlay
+## Hook files and the upstream template
 
-`.clinerules/hooks/lib/_core.mjs` in this template includes two patches that haven't yet landed upstream:
+The hook scripts under `.clinerules/hooks/` are committed copies of the canonical
+template bundled inside the bufab-mcp submodule at
+`mcpserver/bufab-mcp/agent-config/.clinerules/`. They have to live on disk in
+this repo so Claude Code's `.claude/settings.json` and Cline's hooks can find
+them before the MCP starts.
 
-1. An additional `mcpserver/bufab-mcp/scripts/validate.mjs` candidate in `VALIDATOR_PATH_CANDIDATES` (the upstream template assumes `<workspace>/bufab-mcp/`, this layout puts it under `mcpserver/`).
-2. `buildReminderFromGuidelines` no longer returns null when `ui_rules.strict_constraints` is absent — the seeded LanceDB v2.0.1 export uses a flatter schema, so the reminder now emits "guidelines are active" with whatever data is present.
+When the upstream template changes, refresh them:
 
-Once both land in `mcpserver` upstream, this overlay can be deleted and `setup_environment` from the MCP can write the canonical files instead.
+```bash
+npm run mcp:update                                                # bump submodules
+cp -r mcpserver/bufab-mcp/agent-config/.clinerules/hooks/* .clinerules/hooks/
+git diff .clinerules/                                             # review
+git add .clinerules/ mcpserver
+git commit -m "Refresh hook scripts and bump mcpserver"
+```
+
+(On Windows, replace `cp -r` with `Copy-Item -Recurse -Force`.)

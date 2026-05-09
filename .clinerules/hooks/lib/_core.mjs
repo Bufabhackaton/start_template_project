@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const VALIDATOR_PATH_CANDIDATES = [
   // Default expected layout: <workspace>/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "bufab-mcp", "scripts", "validate.mjs"),
-  // This repository layout: <workspace>/mcpserver/bufab-mcp/scripts/validate.mjs
+  // Nested layout (e.g. start_template_project): <workspace>/mcpserver/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "mcpserver", "bufab-mcp", "scripts", "validate.mjs"),
   // Sibling layout: <workspace>/../Guidlines/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "..", "Guidlines", "bufab-mcp", "scripts", "validate.mjs"),
