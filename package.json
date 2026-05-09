@@ -1,6 +1,6 @@
 {
   "name": "bufab-start-template",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Starter template for Bufab projects. Pulls the bufab-mcp server from npm and wires up Claude Code, Cline, and Cursor hooks so the design system and infrastructure rules are enforced from the first commit.",
   "scripts": {
@@ -13,6 +13,6 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@greadcadinho/bufab-mcp": "^1.0.0"
+    "@greadcadinho/bufab-mcp": "^1.1.1"
   }
 }
