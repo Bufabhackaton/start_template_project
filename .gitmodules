@@ -1,6 +1,3 @@
-[submodule "mcpserver"]
-	path = mcpserver
-	url = https://github.com/Bufabhackaton/mcpserver.git
 [submodule "guidelines"]
 	path = guidelines
 	url = https://github.com/Bufabhackaton/guidelines.git

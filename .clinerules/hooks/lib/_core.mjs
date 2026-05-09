@@ -11,9 +11,11 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const VALIDATOR_PATH_CANDIDATES = [
-  // Default expected layout: <workspace>/bufab-mcp/scripts/validate.mjs
+  // npm-installed (default for start_template_project): node_modules/@greadcadinho/bufab-mcp/scripts/validate.mjs
+  resolve(__dirname, "..", "..", "..", "node_modules", "@greadcadinho", "bufab-mcp", "scripts", "validate.mjs"),
+  // Vendored layout: <workspace>/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "bufab-mcp", "scripts", "validate.mjs"),
-  // Nested layout (e.g. start_template_project): <workspace>/mcpserver/bufab-mcp/scripts/validate.mjs
+  // Nested vendored layout: <workspace>/mcpserver/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "mcpserver", "bufab-mcp", "scripts", "validate.mjs"),
   // Sibling layout: <workspace>/../Guidlines/bufab-mcp/scripts/validate.mjs
   resolve(__dirname, "..", "..", "..", "..", "Guidlines", "bufab-mcp", "scripts", "validate.mjs"),

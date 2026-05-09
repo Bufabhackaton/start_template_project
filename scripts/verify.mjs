@@ -11,10 +11,19 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
-const mcpEntry = resolve(projectRoot, "mcpserver", "bufab-mcp", "dist", "index.js");
+const mcpEntry = resolve(
+  projectRoot,
+  "node_modules",
+  "@greadcadinho",
+  "bufab-mcp",
+  "dist",
+  "index.js",
+);
 
 if (!existsSync(mcpEntry)) {
-  console.error(`[verify] MCP entry not found at ${mcpEntry}; run 'npm run mcp:build'`);
+  console.error(
+    `[verify] MCP entry not found at ${mcpEntry}; run 'npm install' (or 'npm run setup')`,
+  );
   process.exit(1);
 }
 
