@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "bufab-mcp": {
+      "command": "node",
+      "args": ["${CLAUDE_PROJECT_DIR}/mcpserver/bufab-mcp/dist/index.js"],
+      "env": {
+        "BUFAB_AGENT_CONFIG_SOURCE_DIR": "${CLAUDE_PROJECT_DIR}/mcpserver/bufab-mcp/agent-config",
+        "BUFAB_UI_DB_PATH": "${CLAUDE_PROJECT_DIR}/mcpserver/bufab-mcp/.lancedb-ui",
+        "BUFAB_RULES_DB_PATH": "${CLAUDE_PROJECT_DIR}/mcpserver/bufab-mcp/.lancedb",
+        "BUFAB_UI_FORCE_RESEED": "0"
+      }
+    }
+  }
+}

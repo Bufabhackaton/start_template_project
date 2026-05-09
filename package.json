@@ -1,0 +1,17 @@
+{
+  "name": "bufab-start-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter template for Bufab projects. Bundles the bufab-mcp server (as a submodule) plus pre-wired Claude Code, Cline, and Cursor hooks so design and infrastructure guidelines are enforced from the first commit.",
+  "scripts": {
+    "setup": "npm run submodules:init && npm run mcp:install && npm run mcp:build && npm run verify",
+    "submodules:init": "git submodule update --init --recursive",
+    "mcp:install": "cd mcpserver/bufab-mcp && npm ci",
+    "mcp:build": "cd mcpserver/bufab-mcp && npm run build",
+    "verify": "node scripts/verify.mjs",
+    "mcp:update": "git submodule update --remote --merge mcpserver guidelines"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

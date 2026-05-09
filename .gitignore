@@ -1,0 +1,14 @@
+node_modules/
+mcpserver/bufab-mcp/node_modules/
+mcpserver/bufab-mcp/dist/
+mcpserver/bufab-mcp/.tmp/
+mcpserver/bufab-mcp/vendor/bicep/
+mcpserver/bufab-mcp/npm-install.log
+
+.claude/settings.local.json
+.cursor/.bufab-violations.json
+.claude/worktrees/
+
+*.log
+.DS_Store
+Thumbs.db
