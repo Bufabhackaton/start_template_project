@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1f3c46" />
+    <title>Bufab NCR Log — Supplier Non-Conformance</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a href="/" class="brand" aria-label="Bufab">
+          <span class="brand__mark">BUFAB</span>
+          <span class="brand__sub">NCR LOG</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#log" class="nav__link nav__link--active">Log NCR</a>
+          <a href="#recent" class="nav__link">Recent</a>
+          <a href="#audit" class="nav__link">Audit trail</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <p class="hero__eyebrow">SUPPLIER QUALITY · Q3 AUDIT-READY</p>
+          <h1 id="hero-title" class="hero__title">Log a non-conformance in 60 seconds.</h1>
+          <p class="hero__body">
+            Photos, severity, customer impact, traceability — captured in one form,
+            stored in Bufab's audit-ready record. Built for plant floors, not laptops.
+          </p>
+        </div>
+      </section>
+
+      <section id="log" class="form-section" aria-labelledby="form-title">
+        <div class="container form-section__inner">
+          <h2 id="form-title" class="section-title">New non-conformance</h2>
+          <form class="ncr-form" id="ncr-form" novalidate>
+            <div class="field">
+              <label class="field__label" for="ncr-id">NCR identifier</label>
+              <input class="field__input" id="ncr-id" name="ncrId" placeholder="e.g. NCR-2026-0418" required />
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field__label" for="supplier">Supplier</label>
+                <input class="field__input" id="supplier" name="supplier" placeholder="Supplier name" required />
+              </div>
+              <div class="field">
+                <label class="field__label" for="part">Part number</label>
+                <input class="field__input" id="part" name="partNumber" placeholder="e.g. C-22-4500-016" required />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field__label" for="severity">Severity</label>
+                <select class="field__input" id="severity" name="severity" required>
+                  <option value="">Select…</option>
+                  <option value="critical">Critical — line stop</option>
+                  <option value="major">Major — quarantine batch</option>
+                  <option value="minor">Minor — concession</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field__label" for="impact">Customer impact</label>
+                <select class="field__input" id="impact" name="customerImpact" required>
+                  <option value="">Select…</option>
+                  <option value="shipped">Shipped — recall risk</option>
+                  <option value="contained">Contained — no shipment</option>
+                  <option value="suspected">Under investigation</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="description">Description</label>
+              <textarea
+                class="field__input field__input--textarea"
+                id="description"
+                name="description"
+                rows="4"
+                placeholder="What was wrong, where it was found, evidence taken."
+                required
+              ></textarea>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="photos">Evidence photos</label>
+              <input
+                class="field__input field__input--file"
+                id="photos"
+                name="photos"
+                type="file"
+                accept="image/*"
+                multiple
+              />
+              <p class="field__hint">Up to 6 photos. Stored with NCR record for the Q3 audit trail.</p>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--cta">Log NCR</button>
+              <button type="reset" class="btn btn--ghost">Reset</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="recent" class="recent-section" aria-labelledby="recent-title">
+        <div class="container recent-section__inner">
+          <h2 id="recent-title" class="section-title">This week's record</h2>
+          <ul class="recent-list" id="recent-list">
+            <li class="recent-empty">Nothing logged yet — submit the form above and your entry will appear here.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p class="site-footer__brand">BUFAB · Supplier Quality</p>
+        <p class="site-footer__legal">
+          Audit-ready record. Built with bufab-mcp guideline enforcement.
+        </p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
