@@ -5,6 +5,7 @@
   "description": "Starter template for Bufab projects. Pulls the bufab-mcp server from npm and wires up Claude Code, Cline, and Cursor hooks so the design system and infrastructure rules are enforced from the first commit.",
   "scripts": {
     "setup": "npm install && npm run guidelines:init && npm run verify",
+    "setup-mcp": "npx -y @greadcadinho/bufab-mcp setup",
     "guidelines:init": "git submodule update --init --recursive",
     "verify": "node scripts/verify.mjs",
     "mcp:update": "npm install @greadcadinho/bufab-mcp@latest && git submodule update --remote --merge guidelines"
@@ -13,6 +14,6 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@greadcadinho/bufab-mcp": "^1.3.0"
+    "@greadcadinho/bufab-mcp": "^1.4.0"
   }
 }

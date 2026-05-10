@@ -1,5 +1,23 @@
 # Bufab project — agent rules
 
+## Pre-flight check (every new task)
+
+Before generating ANY code, call **`ui_export()`** via `bufab-mcp`. If it
+returns "tool not found", "unknown server", an MCP connection error, or
+anything that indicates the `bufab-mcp` server is not reachable: **STOP
+IMMEDIATELY**. Do not write code. Tell the user verbatim:
+
+> bufab-mcp is not registered in this agent's MCP config. Run
+> `npx -y @greadcadinho/bufab-mcp setup` once on this machine, restart
+> the agent session, then retry the task.
+
+The MCP server is the only source of truth for the active design tokens,
+strict constraints, infrastructure overlay, and Bicep validator. Without
+it the rules below cannot be enforced and any code you generate will
+likely violate Bufab guidelines.
+
+---
+
 This project enforces Bufab's design system (UI guidelines, infrastructure
 rules, Azure Bicep validation) through the **`bufab-mcp` MCP server**. The
 hooks in this repo will catch violations after the fact, but **you should

@@ -1,5 +1,15 @@
 # bufab-start-template
 
+> **REQUIRED before first run on any machine:**
+> ```bash
+> npx -y @greadcadinho/bufab-mcp setup
+> ```
+> Registers `bufab-mcp` in every known agent config (Cline CLI, Cline VS Code,
+> Cursor, Claude Code). Idempotent — safe to re-run. Skip this step and the
+> agent's LLM will not see the Bufab design tokens, infrastructure rules, or
+> Bicep validation tools (the post-write hooks still catch some violations,
+> but the LLM can't proactively consult the live guidelines).
+
 Starter template for Bufab projects. Clone it, run `npm install`, and you have:
 
 - The **bufab-mcp** server installed as a regular npm dependency, auto-registered with Claude Code via project-scope `.mcp.json`
@@ -13,16 +23,23 @@ When you ask Claude/Cline to write UI code, the validator catches off-token colo
 ```bash
 git clone https://github.com/Bufabhackaton/start_template_project.git my-project
 cd my-project
-npm run setup
+npm run setup            # install deps + clone guidelines submodule + smoke test
+npm run setup-mcp        # register bufab-mcp in your agent configs (one-time per machine)
 ```
 
 `npm run setup` runs:
 
 1. `npm install` — pulls `@greadcadinho/bufab-mcp` from npm (fetches the seeded LanceDB and bundled validator inside the package; Bicep is downloaded on first install)
 2. `git submodule update --init --recursive` — clones the `guidelines/` markdown reference
-3. `npm run verify` — JSON-RPC smoke check that the MCP starts and `ui_export` returns v2.1
+3. `npm run verify` — JSON-RPC smoke check that the MCP starts and `ui_export` returns the live constraints
 
-Then open the project in Claude Code, Cline, or Cursor — the MCP autoconnects via `.mcp.json` (Claude Code) or per-client config (see below).
+`npm run setup-mcp` runs `npx -y @greadcadinho/bufab-mcp setup`, which writes the
+`bufab-mcp` server entry to every known agent config on this machine
+(Claude Code's `.mcp.json`, Cline CLI's `~/.cline/...`, Cline VS Code's
+globalStorage, and Cursor's `~/.cursor/mcp.json`). Existing entries are
+preserved; only the `bufab-mcp` key is added or refreshed.
+
+Then open the project in Claude Code, Cline, or Cursor — the MCP autoconnects.
 
 ## Layout
 
