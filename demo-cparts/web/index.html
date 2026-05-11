@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1f3c46" />
+    <title>Bufab Catalog — C-Part Search & Order</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a href="/" class="brand" aria-label="Bufab">
+          <span class="brand__mark">BUFAB</span>
+          <span class="brand__divider">|</span>
+          <span class="brand__sub">Catalog</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#search" class="nav__link nav__link--active">Search</a>
+          <a href="#orders" class="nav__link">My orders</a>
+          <a href="#account" class="nav__link">Account</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <p class="hero__eyebrow">CUSTOMER-UNIQUE PRODUCTS · C-PARTS</p>
+          <h1 id="hero-title" class="hero__title">Search by part number, description, or category.</h1>
+          <p class="hero__body">
+            Bufab's industrial fastener catalog — bolts, screws, washers, anchors,
+            studs. Filter by material and surface. Order direct to your plant.
+          </p>
+        </div>
+      </section>
+
+      <section id="search" class="search-section" aria-labelledby="search-title">
+        <div class="container">
+          <h2 id="search-title" class="section-title visually-hidden">Search</h2>
+          <div class="search-bar">
+            <span class="search-bar__icon" aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              id="search-input"
+              class="search-bar__input"
+              placeholder="Search by part number, description, or category…"
+              autocomplete="off"
+            />
+            <button type="button" id="search-clear" class="search-bar__clear" aria-label="Clear search">×</button>
+          </div>
+          <div class="filter-chips" id="filter-chips" role="toolbar" aria-label="Material filters">
+            <button class="chip chip--selected" data-filter="all" type="button">All</button>
+            <button class="chip" data-filter="Stainless steel A2" type="button">Stainless A2</button>
+            <button class="chip" data-filter="Stainless steel A4" type="button">Stainless A4</button>
+            <button class="chip" data-filter="Carbon steel 8.8" type="button">Carbon 8.8</button>
+            <button class="chip" data-filter="Carbon steel 10.9" type="button">Carbon 10.9</button>
+            <button class="chip" data-filter="Brass" type="button">Brass</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="results-section" aria-labelledby="results-title">
+        <div class="container">
+          <div class="results-header">
+            <h2 id="results-title" class="section-title">Results</h2>
+            <span class="results-count" id="results-count">—</span>
+          </div>
+
+          <div class="table-container">
+            <table class="catalog-table" aria-describedby="results-count">
+              <thead>
+                <tr>
+                  <th scope="col">Part name</th>
+                  <th scope="col">Material</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Length</th>
+                  <th scope="col">Surface</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col" class="th--actions">Order</th>
+                </tr>
+              </thead>
+              <tbody id="results-body">
+                <!-- rows injected by app.js -->
+              </tbody>
+            </table>
+            <div class="empty-state" id="empty-state" hidden>
+              <div class="empty-state__icon" aria-hidden="true">⌕</div>
+              <h3 class="empty-state__title">No products match your search</h3>
+              <p class="empty-state__body">Try a shorter term, a different material, or clear the filters.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p class="site-footer__brand">BUFAB · Customer-Unique C-Parts</p>
+        <p class="site-footer__legal">
+          Catalog snapshot. Built with bufab-mcp guideline enforcement.
+        </p>
+      </div>
+    </footer>
+
+    <div
+      class="toast"
+      id="order-toast"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    >
+      <span class="toast__icon" aria-hidden="true">✓</span>
+      <span class="toast__text" id="order-toast-text">Added to order</span>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
