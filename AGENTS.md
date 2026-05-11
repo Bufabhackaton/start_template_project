@@ -1,14 +1,13 @@
 # Bufab project — agent rules
 
-> Same rules, four files (one per agent's convention):
-> - `CLAUDE.md` — this file (Claude Code memory)
-> - `.claude/skills/bufab-preflight/SKILL.md` — Claude Code skill that auto-invokes on build/create/scaffold prompts
-> - `.clinerules/bufab.md` — Cline
-> - `.cursor/rules/bufab.md` — Cursor 1.0+
-> - `AGENTS.md` — OpenAI Codex CLI, Aider, and any tool that follows the AGENTS.md convention
->
-> Keep them in sync. The MCP server, hooks, and validator are
-> agent-agnostic — only the entry-point file path differs.
+> This file is the cross-tool agent contract for this repo. It is the same
+> content as `CLAUDE.md` (Claude Code memory) and `.clinerules/bufab.md`
+> (Cline rules). OpenAI Codex CLI, Aider, and any other agent that follows
+> the `AGENTS.md` convention will pick this up automatically. Cursor users
+> get the same rules via `.cursor/rules/bufab.md`. If you are editing any
+> of these files, keep them in sync — the MCP server is the single source
+> of truth for the underlying guidelines, but each agent expects its own
+> file path.
 
 ## Pre-flight check (every new task)
 
@@ -92,3 +91,15 @@ The canonical design-tokens JSON ships inside the package at
 `node_modules/@greadcadinho/bufab-mcp/data/bufab-design-tokens.json` if
 you need a raw file to grep. Updating bufab-mcp:
 `npm install @greadcadinho/bufab-mcp@latest`.
+
+## Where this file lives in each agent
+
+| Agent | File this agent reads |
+|---|---|
+| Claude Code | `CLAUDE.md` + `.claude/skills/bufab-preflight/SKILL.md` |
+| Cline | `.clinerules/bufab.md` |
+| Cursor | `.cursor/rules/bufab.md` |
+| OpenAI Codex CLI, Aider, others | `AGENTS.md` (this file) |
+
+All four contain the same instructions. The MCP server, hooks, and validator
+are agent-agnostic — only the entry-point file path differs.

@@ -1,14 +1,10 @@
-# Bufab project — agent rules
+---
+description: Bufab project agent rules — enforce design system, infra, and audit standards via bufab-mcp before generating any code
+globs: ["**/*"]
+alwaysApply: true
+---
 
-> Same rules, four files (one per agent's convention):
-> - `CLAUDE.md` — this file (Claude Code memory)
-> - `.claude/skills/bufab-preflight/SKILL.md` — Claude Code skill that auto-invokes on build/create/scaffold prompts
-> - `.clinerules/bufab.md` — Cline
-> - `.cursor/rules/bufab.md` — Cursor 1.0+
-> - `AGENTS.md` — OpenAI Codex CLI, Aider, and any tool that follows the AGENTS.md convention
->
-> Keep them in sync. The MCP server, hooks, and validator are
-> agent-agnostic — only the entry-point file path differs.
+# Bufab project — agent rules
 
 ## Pre-flight check (every new task)
 
@@ -54,8 +50,9 @@ Before generating ANY UI code, call these tools via `bufab-mcp`:
 3. **`ui_search(query)`** — for anything not covered by the two above
    (component patterns, voice / tone, image treatment, etc.).
 
-After writing, the PostToolUse hook runs `bufab-mcp validate <file>`. If
-it returns blocker violations, treat them as build errors — fix the file
+After writing, the PostToolUse hook (configured for Cursor via
+`cursor-after-file-edit.mjs`) runs `bufab-mcp validate <file>`. If it
+returns blocker violations, treat them as build errors — fix the file
 and re-edit before doing anything else.
 
 ### When working on Azure infrastructure
