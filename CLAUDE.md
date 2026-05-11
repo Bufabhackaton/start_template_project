@@ -1,5 +1,12 @@
 # Bufab project — agent rules
 
+> Claude Code users: the `bufab-preflight` skill at
+> `.claude/skills/bufab-preflight/SKILL.md` encodes the same preflight
+> flow in skill form. It auto-invokes whenever the user asks to build,
+> create, scaffold, implement, or modify code in this repo. Cline and
+> Cursor users get the same enforcement via `.clinerules/bufab.md` and
+> the hooks in `.clinerules/hooks/`.
+
 ## Pre-flight check (every new task)
 
 Before generating ANY code, call **`ui_export()`** via `bufab-mcp`. If it
