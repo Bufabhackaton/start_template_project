@@ -132,7 +132,7 @@ export function formatViolationReport(displayPath, result) {
     }
   }
   lines.push("");
-  lines.push("Fix the file and re-edit. Full rules: guidelines/bufab_ui_guidelines.md.");
+  lines.push("Fix the file and re-edit. Full rules: call ui_export_markdown via bufab-mcp.");
   return lines.join("\n");
 }
 
@@ -190,7 +190,7 @@ function buildReminderFromGuidelines(guidelines) {
     "  Provide all required files (main, modules, *.bicepparam, bicepconfig.json) so `bicep build` and `bicep lint` can resolve imports.",
   );
   lines.push("");
-  lines.push("Full reference: guidelines/bufab_ui_guidelines.md");
+  lines.push("Full reference: call ui_export_markdown via bufab-mcp");
   return lines.join("\n");
 }
 

@@ -14,7 +14,7 @@ Starter template for Bufab projects. Clone it, run `npm install`, and you have:
 
 - The **bufab-mcp** server installed as a regular npm dependency, auto-registered with Claude Code via project-scope `.mcp.json`
 - **Hooks** for Claude Code and Cline that inject UI guideline context into every prompt and validate every file you write/edit against the Bufab design system
-- The canonical **Bufab UI guidelines** as a sibling git submodule (markdown reference)
+- The **bufab-mcp package itself is the source of truth for all guidelines** — there is no checked-in markdown copy, because any second copy of the rules would drift and lie. To read the rules, use the `ui_export_markdown` MCP tool or grep `node_modules/@greadcadinho/bufab-mcp/data/bufab-design-tokens.json`.
 
 When you ask Claude/Cline to write UI code, the validator catches off-token colors, gradient violations, etc., and feeds them back as build errors — so the guidelines are followed by default rather than by discipline.
 
@@ -23,15 +23,14 @@ When you ask Claude/Cline to write UI code, the validator catches off-token colo
 ```bash
 git clone https://github.com/Bufabhackaton/start_template_project.git my-project
 cd my-project
-npm run setup            # install deps + clone guidelines submodule + smoke test
+npm run setup            # install deps + smoke test
 npm run setup-mcp        # register bufab-mcp in your agent configs (one-time per machine)
 ```
 
 `npm run setup` runs:
 
-1. `npm install` — pulls `@greadcadinho/bufab-mcp` from npm (fetches the seeded LanceDB and bundled validator inside the package; Bicep is downloaded on first install)
-2. `git submodule update --init --recursive` — clones the `guidelines/` markdown reference
-3. `npm run verify` — JSON-RPC smoke check that the MCP starts and `ui_export` returns the live constraints
+1. `npm install` — pulls `@greadcadinho/bufab-mcp` from npm (fetches the seeded LanceDB, the bundled validator, the canonical design-tokens JSON, and the Bicep CLI binary inside the package)
+2. `npm run verify` — JSON-RPC smoke check that the MCP starts and `ui_export` returns the live constraints
 
 `npm run setup-mcp` runs `npx -y @greadcadinho/bufab-mcp setup`, which writes the
 `bufab-mcp` server entry to every known agent config on this machine
@@ -49,6 +48,7 @@ bufab-start-template/
 ├── .claude/
 │   └── settings.json           # PostToolUse + UserPromptSubmit hook config
 ├── .clinerules/
+│   ├── bufab.md                # System-prompt rules for Cline (pre-flight + workflow)
 │   └── hooks/                  # Hook scripts (shared across Claude Code + Cline)
 │       └── lib/
 │           ├── _core.mjs       # Validator spawning + reminder text builder
@@ -57,9 +57,13 @@ bufab-start-template/
 ├── .gitattributes              # LF line endings for hook .mjs files
 ├── .gitignore
 ├── package.json                # depends on @greadcadinho/bufab-mcp
-├── scripts/verify.mjs          # initialize + tools/list + ui_export smoke test
-└── guidelines/                 ← submodule https://github.com/Bufabhackaton/guidelines.git
+└── scripts/verify.mjs          # initialize + tools/list + ui_export smoke test
 ```
+
+The active guidelines live inside the npm package
+(`node_modules/@greadcadinho/bufab-mcp/data/bufab-design-tokens.json` and
+the bundled `.lancedb-ui/`). Anything else outside the package would
+drift — so this repo doesn't keep a second copy.
 
 ## Per-client setup
 
@@ -90,7 +94,7 @@ Cursor reads `.cursor/mcp.json` and `.cursor/hooks.json`. These aren't bundled �
 
 ## What the hooks do
 
-- **UserPromptSubmit**: every prompt you send to Claude/Cline gets a reminder injected with the active guideline version, the bufab-mcp tools to consult (`ui_section_spec`, `ui_token`, `ui_search`, `waf_guidelines`, `bicep_validate`), and a pointer to the full reference at `guidelines/bufab_ui_guidelines.md`.
+- **UserPromptSubmit**: every prompt you send to Claude/Cline gets a reminder injected with the active guideline version, the bufab-mcp tools to consult (`ui_section_spec`, `ui_token`, `ui_search`, `waf_guidelines`, `bicep_validate`), and a pointer back to the MCP for the full reference (`ui_export_markdown`).
 - **PostToolUse** (Edit / Write / MultiEdit): the file you just wrote is run through `node_modules/@greadcadinho/bufab-mcp/scripts/validate.mjs` against live UI guidelines from the MCP. Blockers are returned as `additionalContext` so Claude sees them on the next turn.
 
 ## Updating

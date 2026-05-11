@@ -68,10 +68,17 @@ non-trivial edit, not just at the end.
 
 ## Reference
 
-The full UI guideline document is at `guidelines/bufab_ui_guidelines.md`.
-The currently-active export is reachable at runtime via the MCP tools
-`ui_export` and `ui_export_markdown`.
+**The MCP server is the single source of truth for guidelines.** There is
+no checked-in `guidelines/` directory — anything outside the MCP would
+drift and lie about what the validator actually enforces.
 
-The MCP server is installed as an npm dependency at
-`node_modules/@greadcadinho/bufab-mcp/`. Updating bufab-mcp:
+To read the active rules:
+
+- `ui_export` — full machine-readable guidelines (tokens, components, layout, strict_constraints).
+- `ui_export_markdown` — same content as a human-readable markdown document.
+- `ui_section_spec(section_type)`, `ui_token(name)`, `ui_search(query)` — narrower lookups.
+
+The canonical design-tokens JSON ships inside the package at
+`node_modules/@greadcadinho/bufab-mcp/data/bufab-design-tokens.json` if
+you need a raw file to grep. Updating bufab-mcp:
 `npm install @greadcadinho/bufab-mcp@latest`.
